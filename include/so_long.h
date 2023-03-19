@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 18:08:11 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:53:54 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,38 @@ typedef struct s_data
 	t_position	*exit;
 }				t_data;
 
-/* textures.c */
+/******************  textures.c: Functions to load textures *******************/
+
+/**
+ *  
+ */
 mlx_image_t	*sl_load_texture(mlx_t *mlx, char *path);
+
+/**
+ * Prints a valid texture in a (x, y) position at mlx.
+ * @param mlx
+ * @param texture
+ * @param x
+ * @param y
+ */
 void		sl_print_texture(mlx_t *mlx, mlx_image_t *texture, int x, int y);
-mlx_image_t	*sl_translate_texture(t_images *images, char type);
+
+/**
+ * Translates a valid value of a map to a image texture to be printed.
+ * @param images a structure with image dictionary.
+ * @param type a valid value og the map.
+ * @returns the image to be printable by mlx lib.
+ */
+mlx_image_t	*sl_translate_texture(t_images *images, t_value type);
+
+/**
+ * Prints a map given a image map.
+ * @param mlx mlx data.
+ * @param data map information structure.
+ * @param images a structure with image dictionary.
+ */
+void	sl_print_map(mlx_t *mlx, t_data *data, t_images *images);
+
 
 /* load_map_textures.c */
 /* void	sl_read_map(mlx_t *mlx, t_images *images); */

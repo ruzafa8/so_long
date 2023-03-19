@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 18:30:29 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:10:25 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ int	main(int argc, char **argv)
 	if (!mlx)
 		return ((int) sl_print_error("Error\nHubo un error con al inicializar la MLX"));
 
-	t_images images;
 	t_data *data = sl_read_map(argv[1]);
 	if (!data)
 		return (1);
 
+	t_images images;
 	images.player = sl_load_texture(mlx, "./assets/textures/CHICKEN.png");
 	images.floor = sl_load_texture(mlx, "./assets/textures/CHAN.png");
 	images.wall = sl_load_texture(mlx, "./assets/textures/SETO.png");
 	images.exit = sl_load_texture(mlx, "./assets/textures/ESCALERA.png");
 	images.collection = sl_load_texture(mlx, "./assets/textures/COFRE.png");
 
-
+	sl_print_map(mlx, data, &images);
 	mlx_image_t* img = mlx_new_image(mlx, 256, 256);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		return (1);
@@ -49,5 +49,8 @@ int	main(int argc, char **argv)
 	//mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	// @TODO: free images
+	// @TODO: free data
+	// @TODO: free mlx?
 	return (0);
 }
