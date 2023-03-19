@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 19:00:53 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:42:27 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sl_print_texture(mlx_t *mlx, mlx_image_t *texture, int x, int y)
 	mlx_image_to_window(mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
 }
 
-void	sl_print_map(mlx_t *mlx, t_data *data, t_images *images)
+void	sl_print_map(mlx_t *mlx, t_data *data)
 {
 	size_t		x;
 	size_t		y;
@@ -42,8 +42,8 @@ void	sl_print_map(mlx_t *mlx, t_data *data, t_images *images)
 		{
 			value = sl_get_position(data, x, y);
 			if (value != FLOOR)
-				sl_print_texture(mlx, sl_translate_texture(images, FLOOR), x, y);
-			sl_print_texture(mlx, sl_translate_texture(images, value), x, y);
+				sl_print_texture(mlx, sl_translate_texture(data->images, FLOOR), x, y);
+			sl_print_texture(mlx, sl_translate_texture(data->images, value), x, y);
 			x++;
 		}
 		y++;

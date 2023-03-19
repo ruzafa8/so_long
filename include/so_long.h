@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 18:53:54 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:57:01 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	int			num_col;
 	t_position	*player;
 	t_position	*exit;
+	t_images	*images;
 }				t_data;
 
 /******************  textures.c: Functions to load textures *******************/
@@ -83,7 +84,7 @@ mlx_image_t	*sl_translate_texture(t_images *images, t_value type);
  * @param data map information structure.
  * @param images a structure with image dictionary.
  */
-void	sl_print_map(mlx_t *mlx, t_data *data, t_images *images);
+void	sl_print_map(mlx_t *mlx, t_data *data);
 
 
 /* load_map_textures.c */
