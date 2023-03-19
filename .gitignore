@@ -1,2 +1,5 @@
 Game
 *.o
+.vscode
+*.swp
+*.ber

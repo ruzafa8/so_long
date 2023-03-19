@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/18 14:05:26 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:08:11 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	sl_free_map(t_data **data);
  * @param data The map data
  * @param x position x in the map
  * @param y position y in the map
- * @returns the 
+ * @returns the value of the position (x, y) in the map.
  */
 t_value	sl_get_position(t_data *data, size_t x, size_t y);
 

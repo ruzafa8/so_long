@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 20:34:36 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/18 14:41:40 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:33:34 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ static size_t   count_value(t_data *data, t_value value, int *pos_x, int *pos_y)
         {
             if (sl_get_position(data, x, y) == value)
             {
-                *pos_x = x;
-                *pos_y = y;
+                if (pos_x)
+                    *pos_x = x;
+                if (pos_y)
+                    *pos_y = y;
                 count++;
             }
             x++;
@@ -103,29 +105,65 @@ static int  verify_valid_chars(char *map)
     return (1);
 }
 
+/**
+ * Parses a the char map to t_value array map.
+ */
+static t_value  *ctov(char * map, size_t width, size_t height)
+{
+    t_value *res;
+    size_t  i;
+
+    res = (t_value *) ft_calloc((width * height) + 1, sizeof(t_value));
+    if (!res)
+        return (0);
+    i = 0;
+    while (map[i])
+    {
+        if (map[i] == '0')
+            res[i] = FLOOR;
+        else if (map[i] == '1')
+            res[i] = WALL;
+        else if (map[i] == 'E')
+            res[i] = EXIT;
+        else if (map[i] == 'P')
+            res[i] = PLAYER;
+        else
+            res[i] = COLLECTIONABLE;
+        i++;
+    }
+    res[i] = 0;
+    return (res);
+}
+
 t_data  *sl_verify_map(char *map, size_t width, size_t height)
 {
     t_data  *data;
+    size_t  count;
 
     if (!verify_valid_chars(map))
         return ((t_data *) sl_print_error("Error\nEl mapa tiene caracteres inválidos."));
-    data = (t_data *) ft_calloc(1, sizeof(data));
-    data->map = (t_value *) map;
+    data = (t_data *) ft_calloc(1, sizeof(t_data));
+    data->map = ctov(map, width, height);
+    if (!data->map)
+        return (sl_free_map(&data), (t_data *) sl_print_error("Error\nProblema de memoria."));
     data->width = width;
     data->height = height;
-    data->player = 0;
-    data->exit = 0;
-    data->num_col = 0;
     if (verify_wall(data) == 0)
         return (sl_free_map(&data), (t_data *) sl_print_error("Error\nEl borde no está relleno de muros."));
     data->player = (t_position *) ft_calloc(1, sizeof(t_position));
-    if (count_value(data, PLAYER, &(data->player->x), &(data->player->y)) != 1)
+    count = count_value(data, PLAYER, &(data->player->x), &(data->player->y));
+    if (count == 0)
         return (sl_free_map(&data), (t_data *) sl_print_error("Error\nNo se ha encontrado al jugador."));
-    data->player = (t_position *) ft_calloc(1, sizeof(t_position));
-    if (count_value(data, EXIT,  &(data->exit->x), &(data->exit->y)) != 1)
+    if (count > 1)
+        return (sl_free_map(&data), (t_data *) sl_print_error("Error\nHay más de 1 jugador."));
+    data->exit = (t_position *) ft_calloc(1, sizeof(t_position));
+    count = count_value(data, EXIT,  &(data->exit->x), &(data->exit->y));
+    if (count == 0)
         return (sl_free_map(&data), (t_data *) sl_print_error("Error\nNo se ha encontrado la salida."));
+    if (count > 1)
+        return (sl_free_map(&data), (t_data *) sl_print_error("Error\nHay más de 1 salida."));
     data->num_col = count_value(data, COLLECTIONABLE, 0, 0);
     if (data->num_col == 0)
         return (sl_free_map(&data), (t_data *) sl_print_error("Error\nNo hay ningún coleccionable."));
-    return data;
+    return (data);
 }
