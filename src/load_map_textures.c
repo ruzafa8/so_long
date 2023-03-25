@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 17:31:35 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 15:10:55 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:35:19 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ void	sl_load_images(t_data *game)
 	game->images = (t_images *) ft_calloc(1, sizeof(t_images));
 	if (!game->images)
 		return ;
-	game->images->player = sl_load_texture(game->mlx, "./assets/textures/CHICKEN.png");
-	game->images->floor = sl_load_texture(game->mlx, "./assets/textures/CHAN_64.png");
+	game->images->player = sl_load_texture(game->mlx,
+			"./assets/textures/CHICKEN.png");
+	game->images->floor = sl_load_texture(game->mlx,
+			"./assets/textures/CHAN_64.png");
 	game->images->wall = load_wall(game);
-	game->images->exit = sl_load_texture(game->mlx, "./assets/textures/ESCALERA.png");
-	game->images->collection = sl_load_texture(game->mlx, "./assets/textures/COFRE.png");
+	game->images->exit = sl_load_texture(game->mlx,
+			"./assets/textures/ESCALERA.png");
+	game->images->collection = sl_load_texture(game->mlx,
+			"./assets/textures/COFRE.png");
 }

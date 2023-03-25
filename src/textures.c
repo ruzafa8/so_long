@@ -6,13 +6,13 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 15:33:07 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:42:22 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-mlx_image_t	*sl_load_texture(mlx_t* mlx, char *path)
+mlx_image_t	*sl_load_texture(mlx_t *mlx, char *path)
 {
 	mlx_texture_t	*tex;
 	mlx_image_t		*img;

@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 15:09:12 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:50:13 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
-		return ((int) sl_print_error("Error\nNúmero de argumentos inválido."));
-	
+	t_data	*game;
 
-	t_data *game = sl_read_map(argv[1]);
+	if (argc != 2)
+		return ((int) sl_error("Número de argumentos inválido."));
+	game = sl_read_map(argv[1]);
 	if (!game)
 		return (1);
 	game->mlx = mlx_init(10 * TILE_SIZE, 10 * TILE_SIZE, "Hello42", true);
 	if (!game->mlx)
-		return ((int) sl_print_error("Error\nHubo un error con al inicializar la MLX"));
+		return ((int) sl_error("Hubo un error con al inicializar la MLX"));
 	sl_load_images(game);
 	sl_print_map(game);
 

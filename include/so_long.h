@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 15:30:46 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:50:03 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_data  *sl_read_map(char *filename);
  * @param error_str the string to print.
  * @returns NULL.
  */
-void    *sl_print_error(char *error_str);
+void    *sl_error(char *error_str);
 
 
 /*******************  data_utils.c: Functions to read a map *******************/
@@ -126,7 +126,7 @@ void    *sl_print_error(char *error_str);
  * Releases a t_data structure
  * @param data the variable to free.
  */
-void	sl_free_map(t_data **data);
+void	sl_free_data(t_data **data);
 
 /**
  * Given a map data, get the value of the position (x,y) in the map.
