@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 19:36:26 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:49:04 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ typedef struct s_position
 	int	x;
 	int	y;
 }		t_position;
+
+typedef enum e_direction
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_direction;
 
 typedef enum e_value
 {
@@ -88,16 +96,17 @@ void		sl_print_position(t_data *data, int x, int y);
  */
 void		sl_print_map(t_data *data);
 
-
 /* load_map_textures.c */
 void		sl_load_images(t_data *game);
 
 /****************  verifications.c: Functions to verify a map *****************/
 
 /**
- * Verifies that the map meets the requirements. If it doesn't meets, return null.
+ * Verifies that the map meets the requirements.
+ * If it doesn't meets, return null.
  * @param data the map structure to verify.
- * @returns the map with usefull data if meets the requirements. Else returns null.
+ * @returns the map with usefull data if meets the requirements.
+ * Else returns null.
  */
 t_data		*sl_verify_map(char *map, size_t width, size_t height);
 
@@ -125,7 +134,6 @@ t_data		*sl_read_map(char *filename);
  */
 void		*sl_error(char *error_str);
 
-
 /*******************  data_utils.c: Functions to read a map *******************/
 
 /**
@@ -142,5 +150,8 @@ void		sl_free_data(t_data **data);
  * @returns the value of the position (x, y) in the map.
  */
 t_value		sl_get_position(t_data *data, size_t x, size_t y);
+
+/******************  player_move.c: Functions to move player ******************/
+void		sl_player_move(t_data *game, t_direction direction);
 
 #endif
