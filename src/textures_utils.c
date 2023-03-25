@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:42:22 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:44:13 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	sl_print_texture(t_data *data, t_value value, int x, int y)
 
 	texture = sl_translate_texture(data, value);
 	mlx_image_to_window(data->mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
-
 }
 
 void	sl_print_position(t_data *data, int x, int y)
@@ -38,28 +37,6 @@ void	sl_print_position(t_data *data, int x, int y)
 
 	texture = sl_translate_position(data, x, y);
 	mlx_image_to_window(data->mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
-}
-
-void	sl_print_map(t_data *data)
-{
-	size_t		x;
-	size_t		y;
-	t_value		value;
-
-	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			value = sl_get_position(data, x, y);
-			if (value != FLOOR)
-				sl_print_texture(data, FLOOR, x, y);
-			sl_print_position(data, x, y);
-			x++;
-		}
-		y++;
-	}
 }
 
 mlx_image_t	*sl_translate_position(t_data *data, int x, int y)

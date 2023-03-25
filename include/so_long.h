@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:50:03 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:43:10 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ void	sl_load_images(t_data *game);
  * @returns the map with usefull data if meets the requirements. Else returns null.
  */
 t_data  *sl_verify_map(char *map, size_t width, size_t height);
+
+/**********  verifications_valid_chars.c: Functions to verify a map ***********/
+
+/**
+ * 
+ */
+t_value		*sl_validate_chars(char *map, size_t width, size_t height);
 
 
 /*******************  parse_file.c: Functions to read a map *******************/

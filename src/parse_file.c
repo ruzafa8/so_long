@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 17:50:32 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:44:50 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,11 @@ static int	valid_extension(char *filename)
 	size_t	len;
 
 	len = ft_strlen(filename);
-	return (len > 4 
+	return (len > 4
 		&& filename[len - 4] == '.'
 		&& filename[len - 3] == 'b'
 		&& filename[len - 2] == 'e'
 		&& filename[len - 1] == 'r');
-}
-
-void	*sl_error(char *error_str)
-{
-	size_t	str_len;
-
-	str_len = ft_strlen(error_str);
-	write(2, "Error.\n", 7);
-	write(2, error_str, str_len);
-	return (0);
 }
 
 /**
@@ -89,6 +79,21 @@ static char	*get_next_line_without_breakline(int fd)
 	return (cpy);
 }
 
+int	open_ber_extension(char	*filename)
+{
+	int	fd;
+
+	if (!valid_extension(filename))
+	{
+		sl_error("La extensión no es .ber.");
+		return (-1);
+	}
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		sl_error("Hubo un problema con la lectura del fichero.");
+	return (fd);
+}
+
 t_data	*sl_read_map(char *filename)
 {
 	int		fd;
@@ -96,27 +101,24 @@ t_data	*sl_read_map(char *filename)
 	char	*map;
 	size_t	width;
 	size_t	height;
-	t_data	*res;
 
-	if (!valid_extension(filename))
-		return (sl_error("La extensión no es .ber."));
-	fd = open(filename, O_RDONLY);
+	fd = open_ber_extension(filename);
 	if (fd < 0)
-		return (sl_error("Hubo un problema con la lectura del fichero."));
+		return (0);
 	line = get_next_line_without_breakline(fd);
 	width = ft_strlen(line);
 	height = 0;
 	map = 0;
-	if (line == 0) 
+	if (line == 0)
 		return (close(fd), (t_data *) sl_error("El mapa está vacío."));
 	while (line && ft_strlen(line) > 0)
 	{
 		if (width != ft_strlen(line))
-			return (close(fd), free(line), free(map), (t_data *) sl_error("El mapa no es rectangular."));
+			return (close(fd), free(line), free(map),
+				(t_data *) sl_error("El mapa no es rectangular."));
 		map = concat(map, line);
 		line = get_next_line_without_breakline(fd);
 		height++;
 	}
-	res = sl_verify_map(map, width, height);
-	return (close(fd), free(map), res);
+	return (close(fd), free(map), sl_verify_map(map, width, height));
 }
