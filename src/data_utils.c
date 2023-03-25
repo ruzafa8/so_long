@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:22:52 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:14:13 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:58:58 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_value	sl_get_position(t_data *data, size_t x, size_t y)
 		return (INVALID);
 	if (y < 0 || y >= data->height)
 		return (INVALID);
-	return (data->map[(x * data->width) + y]);
+	return (data->map[(y * data->width) + x]);
 }
 
 void	*sl_error(char *error_str)
