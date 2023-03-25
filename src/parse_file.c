@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 18:33:37 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:22:28 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static char *get_next_line_without_breakline(int fd)
     len = ft_strlen(line);
     if (len == 1)
         return (line);
+    if (line[len - 1] != '\n')
+        return (line);
     cpy = ft_substr(line, 0, len - 1);
     free(line);
     return (cpy);
@@ -106,6 +108,7 @@ t_data  *sl_read_map(char *filename)
         return (close(fd), (t_data *) sl_print_error("Error\nEl mapa está vacío"));
     while (line && ft_strlen(line) > 0)
     {
+        ft_printf("LEN: %d\n", ft_strlen(line));
         if (width != ft_strlen(line))
             return (close(fd), free(line), free(map), (t_data *) sl_print_error("Error\nEl mapa no es rectangular."));
         map = concat(map, line);

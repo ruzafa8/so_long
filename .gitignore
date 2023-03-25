@@ -3,3 +3,6 @@ Game
 .vscode
 *.swp
 *.ber
+*.dSYM
+.DS_Store
+*.a

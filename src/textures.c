@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 19:42:27 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:33:07 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,24 @@ mlx_image_t	*sl_load_texture(mlx_t* mlx, char *path)
 	return (img);
 }
 
-void	sl_print_texture(mlx_t *mlx, mlx_image_t *texture, int x, int y)
+void	sl_print_texture(t_data *data, t_value value, int x, int y)
 {
-	mlx_image_to_window(mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
+	mlx_image_t	*texture;
+
+	texture = sl_translate_texture(data, value);
+	mlx_image_to_window(data->mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
+
 }
 
-void	sl_print_map(mlx_t *mlx, t_data *data)
+void	sl_print_position(t_data *data, int x, int y)
+{
+	mlx_image_t	*texture;
+
+	texture = sl_translate_position(data, x, y);
+	mlx_image_to_window(data->mlx, texture, x * TILE_SIZE, y * TILE_SIZE);
+}
+
+void	sl_print_map(t_data *data)
 {
 	size_t		x;
 	size_t		y;
@@ -42,25 +54,50 @@ void	sl_print_map(mlx_t *mlx, t_data *data)
 		{
 			value = sl_get_position(data, x, y);
 			if (value != FLOOR)
-				sl_print_texture(mlx, sl_translate_texture(data->images, FLOOR), x, y);
-			sl_print_texture(mlx, sl_translate_texture(data->images, value), x, y);
+				sl_print_texture(data, FLOOR, x, y);
+			sl_print_position(data, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-mlx_image_t	*sl_translate_texture(t_images *images, t_value type)
+mlx_image_t	*sl_translate_position(t_data *data, int x, int y)
+{
+	t_value	type;
+	int		wall_type;
+
+	type = sl_get_position(data, x, y);
+	if (type == FLOOR)
+		return (data->images->floor);
+	if (type == WALL)
+	{
+		wall_type = (sl_get_position(data, x, y - 1) == WALL) * 8;
+		wall_type += (sl_get_position(data, x, y + 1) == WALL) * 2;
+		wall_type += (sl_get_position(data, x - 1, y) == WALL) * 1;
+		wall_type += (sl_get_position(data, x + 1, y) == WALL) * 4;
+		return (data->images->wall[wall_type]);
+	}
+	if (type == COLLECTIONABLE)
+		return (data->images->collection);
+	if (type == PLAYER)
+		return (data->images->player);
+	if (type == EXIT)
+		return (data->images->exit);
+	return (0);
+}
+
+mlx_image_t	*sl_translate_texture(t_data *data, t_value type)
 {
 	if (type == FLOOR)
-		return (images->floor);
+		return (data->images->floor);
 	if (type == WALL)
-		return (images->wall);
+		return (data->images->wall[0]);
 	if (type == COLLECTIONABLE)
-		return (images->collection);
+		return (data->images->collection);
 	if (type == PLAYER)
-		return (images->player);
+		return (data->images->player);
 	if (type == EXIT)
-		return (images->exit);
+		return (data->images->exit);
 	return (0);
 }

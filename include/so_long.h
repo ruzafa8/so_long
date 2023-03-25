@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/19 19:57:01 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:30:46 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include "MLX42/MLX42.h"
 # include "libft/ft.h"
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 
 typedef struct s_images
 {
 	mlx_image_t	*player;
 	mlx_image_t	*floor;
-	mlx_image_t	*wall;
+	mlx_image_t	**wall;
 	mlx_image_t	*exit;
 	mlx_image_t	*collection;
 }				t_images;
@@ -40,7 +40,8 @@ typedef enum e_value
 	WALL = '1',
 	PLAYER = 'P',
 	EXIT = 'E',
-	COLLECTIONABLE = 'C'
+	COLLECTIONABLE = 'C',
+	INVALID = 0
 }	t_value;
 
 typedef struct s_data
@@ -52,6 +53,7 @@ typedef struct s_data
 	t_position	*player;
 	t_position	*exit;
 	t_images	*images;
+	mlx_t		*mlx;
 }				t_data;
 
 /******************  textures.c: Functions to load textures *******************/
@@ -63,32 +65,32 @@ mlx_image_t	*sl_load_texture(mlx_t *mlx, char *path);
 
 /**
  * Prints a valid texture in a (x, y) position at mlx.
- * @param mlx
- * @param texture
+ * @param data
  * @param x
  * @param y
  */
-void		sl_print_texture(mlx_t *mlx, mlx_image_t *texture, int x, int y);
+void	sl_print_texture(t_data *data, t_value value, int x, int y);
 
 /**
  * Translates a valid value of a map to a image texture to be printed.
- * @param images a structure with image dictionary.
- * @param type a valid value og the map.
+ * @param data the data game.
+ * @param x
+ * @param y
  * @returns the image to be printable by mlx lib.
  */
-mlx_image_t	*sl_translate_texture(t_images *images, t_value type);
+mlx_image_t	*sl_translate_position(t_data *data, int x, int y);
+mlx_image_t	*sl_translate_texture(t_data *data, t_value type);
+void	sl_print_position(t_data *data, int x, int y);
 
 /**
  * Prints a map given a image map.
- * @param mlx mlx data.
  * @param data map information structure.
- * @param images a structure with image dictionary.
  */
-void	sl_print_map(mlx_t *mlx, t_data *data);
+void	sl_print_map(t_data *data);
 
 
 /* load_map_textures.c */
-/* void	sl_read_map(mlx_t *mlx, t_images *images); */
+void	sl_load_images(t_data *game);
 
 /****************  verifications.c: Functions to verify a map *****************/
 
