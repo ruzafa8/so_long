@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 20:11:10 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:18:49 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data
 	t_position	*exit;
 	t_images	*images;
 	mlx_t		*mlx;
+	int			win;
 }				t_data;
 
 /******************  textures.c: Functions to load textures *******************/

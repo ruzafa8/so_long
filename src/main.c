@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:45:11 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:19:44 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 	game = param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(game->mlx);
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	if (!game->win &&
+		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
 			sl_player_move(game, LEFT);
