@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:50:14 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:11:10 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,9 @@ void		sl_set_position(t_data *data, size_t x, size_t y, t_value value);
 
 /******************  player_move.c: Functions to move player ******************/
 void		sl_player_move(t_data *game, t_direction direction);
+
+/************************  player_game_verifications.c ************************/
+int			sl_verify_win(t_data *game, int x, int y);
+void		sl_verify_collect(t_data *game, int x, int y);
 
 #endif
