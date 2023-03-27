@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 17:20:37 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:50:14 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef struct s_data
 	t_value		*map;
 	size_t		width;
 	size_t		height;
-	int			num_col;
+	size_t		num_col;
+	size_t		collected;
 	size_t		num_movs;
 	t_position	*player;
 	t_position	*exit;
@@ -151,6 +152,7 @@ void		sl_free_data(t_data **data);
  * @returns the value of the position (x, y) in the map.
  */
 t_value		sl_get_position(t_data *data, size_t x, size_t y);
+void		sl_set_position(t_data *data, size_t x, size_t y, t_value value);
 
 /******************  player_move.c: Functions to move player ******************/
 void		sl_player_move(t_data *game, t_direction direction);

@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:35:51 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:45:11 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 		return ((int) sl_error("Hubo un error con al inicializar la MLX"));
 	sl_load_images(game);
 	if (!game->images)
-		retuxrn (1);
+		return (1);
 	sl_print_map(game);
 
 	// Register a hook and pass mlx as an optional param.
