@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:29:28 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 19:51:42 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:36:26 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	sl_player_move(t_data *game, t_direction direction)
 	update_position(&x, &y, direction);
 	if (valid_position(game, x, y))
 	{
+		game->num_movs++;
+		ft_printf("%d\n", game->num_movs);
 		change_player_position(game, x, y);
 	}
 }
