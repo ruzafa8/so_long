@@ -6,18 +6,35 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:05:12 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 20:18:57 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:49:39 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	delete_collect(t_data *game, int x, int y)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < game->num_col)
+	{
+		if (game->images->collection->instances[i].x == x * TILE_SIZE
+			&& game->images->collection->instances[i].y == y * TILE_SIZE
+			&& game->images->collection->instances[i].enabled)
+		{
+			game->images->collection->instances[i].enabled = 0;
+		}
+		i++;
+	}
+}
+
 void	sl_verify_collect(t_data *game, int x, int y)
 {
 	if (sl_get_position(game, x, y) == COLLECTIONABLE)
 	{
+		delete_collect(game, x, y);
 		game->collected++;
-		sl_set_position(game, x, y, FLOOR);
 	}
 }
 
