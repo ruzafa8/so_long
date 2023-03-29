@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 20:19:44 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:56:49 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	game = sl_read_map(argv[1]);
 	if (!game)
 		return (1);
-	game->mlx = mlx_init(10 * TILE_SIZE, 10 * TILE_SIZE, "Hello42", true);
+	game->mlx = mlx_init(game->width * TILE_SIZE, game->height * TILE_SIZE, "ChickenPollos42", true);
 	if (!game->mlx)
 		return ((int) sl_error("Hubo un error con al inicializar la MLX"));
 	sl_load_images(game);
