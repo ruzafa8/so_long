@@ -6,14 +6,14 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:43:10 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:30:57 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 # include "MLX42/MLX42.h"
 # include "libft/ft.h"
 
@@ -21,18 +21,26 @@
 
 typedef struct s_images
 {
-	mlx_image_t	*player;
+	mlx_image_t	**player;
 	mlx_image_t	*floor;
 	mlx_image_t	**wall;
 	mlx_image_t	*exit;
 	mlx_image_t	*collection;
 }				t_images;
 
-typedef	struct s_position
+typedef struct s_position
 {
 	int	x;
 	int	y;
 }		t_position;
+
+typedef enum e_direction
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+}	t_direction;
 
 typedef enum e_value
 {
@@ -49,11 +57,14 @@ typedef struct s_data
 	t_value		*map;
 	size_t		width;
 	size_t		height;
-	int			num_col;
+	size_t		num_col;
+	size_t		collected;
+	size_t		num_movs;
 	t_position	*player;
 	t_position	*exit;
 	t_images	*images;
 	mlx_t		*mlx;
+	int			win;
 }				t_data;
 
 /******************  textures.c: Functions to load textures *******************/
@@ -69,7 +80,7 @@ mlx_image_t	*sl_load_texture(mlx_t *mlx, char *path);
  * @param x
  * @param y
  */
-void	sl_print_texture(t_data *data, t_value value, int x, int y);
+void		sl_print_texture(t_data *data, t_value value, int x, int y);
 
 /**
  * Translates a valid value of a map to a image texture to be printed.
@@ -80,26 +91,27 @@ void	sl_print_texture(t_data *data, t_value value, int x, int y);
  */
 mlx_image_t	*sl_translate_position(t_data *data, int x, int y);
 mlx_image_t	*sl_translate_texture(t_data *data, t_value type);
-void	sl_print_position(t_data *data, int x, int y);
+void		sl_print_position(t_data *data, int x, int y);
 
 /**
  * Prints a map given a image map.
  * @param data map information structure.
  */
-void	sl_print_map(t_data *data);
-
+void		sl_print_map(t_data *data);
 
 /* load_map_textures.c */
-void	sl_load_images(t_data *game);
+void		sl_load_images(t_data *game);
 
 /****************  verifications.c: Functions to verify a map *****************/
 
 /**
- * Verifies that the map meets the requirements. If it doesn't meets, return null.
+ * Verifies that the map meets the requirements.
+ * If it doesn't meets, return null.
  * @param data the map structure to verify.
- * @returns the map with usefull data if meets the requirements. Else returns null.
+ * @returns the map with usefull data if meets the requirements.
+ * Else returns null.
  */
-t_data  *sl_verify_map(char *map, size_t width, size_t height);
+t_data		*sl_verify_map(char *map, size_t width, size_t height);
 
 /**********  verifications_valid_chars.c: Functions to verify a map ***********/
 
@@ -107,7 +119,6 @@ t_data  *sl_verify_map(char *map, size_t width, size_t height);
  * 
  */
 t_value		*sl_validate_chars(char *map, size_t width, size_t height);
-
 
 /*******************  parse_file.c: Functions to read a map *******************/
 
@@ -117,15 +128,14 @@ t_value		*sl_validate_chars(char *map, size_t width, size_t height);
  * @param filename the name of the file
  * @returns a verified structure with the info of the map or null if any problem.
  */
-t_data  *sl_read_map(char *filename);
+t_data		*sl_read_map(char *filename);
 
 /**
  * Prints an string error on the standard error output.
  * @param error_str the string to print.
  * @returns NULL.
  */
-void    *sl_error(char *error_str);
-
+void		*sl_error(char *error_str);
 
 /*******************  data_utils.c: Functions to read a map *******************/
 
@@ -133,7 +143,7 @@ void    *sl_error(char *error_str);
  * Releases a t_data structure
  * @param data the variable to free.
  */
-void	sl_free_data(t_data **data);
+void		sl_free_data(t_data **data);
 
 /**
  * Given a map data, get the value of the position (x,y) in the map.
@@ -142,6 +152,14 @@ void	sl_free_data(t_data **data);
  * @param y position y in the map
  * @returns the value of the position (x, y) in the map.
  */
-t_value	sl_get_position(t_data *data, size_t x, size_t y);
+t_value		sl_get_position(t_data *data, size_t x, size_t y);
+void		sl_set_position(t_data *data, size_t x, size_t y, t_value value);
+
+/******************  player_move.c: Functions to move player ******************/
+void		sl_player_move(t_data *game, t_direction direction);
+
+/************************  player_game_verifications.c ************************/
+int			sl_verify_win(t_data *game, int x, int y);
+void		sl_verify_collect(t_data *game, int x, int y);
 
 #endif
