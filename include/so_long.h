@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:30:57 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:56:13 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ t_data		*sl_verify_map(char *map, size_t width, size_t height);
  * 
  */
 t_value		*sl_validate_chars(char *map, size_t width, size_t height);
+t_value		*sl_ctov(char *map, size_t width, size_t height);
 
 /*******************  parse_file.c: Functions to read a map *******************/
 
@@ -157,9 +158,13 @@ void		sl_set_position(t_data *data, size_t x, size_t y, t_value value);
 
 /******************  player_move.c: Functions to move player ******************/
 void		sl_player_move(t_data *game, t_direction direction);
+int			sl_valid_position(t_data *game, size_t x, size_t y);
 
 /************************  player_game_verifications.c ************************/
 int			sl_verify_win(t_data *game, int x, int y);
 void		sl_verify_collect(t_data *game, int x, int y);
+
+/*******************************  verify_way.c ********************************/
+int			sl_verify_way(t_data *game, char *map);
 
 #endif
