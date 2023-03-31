@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 20:18:49 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:30:57 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_images
 {
-	mlx_image_t	*player;
+	mlx_image_t	**player;
 	mlx_image_t	*floor;
 	mlx_image_t	**wall;
 	mlx_image_t	*exit;

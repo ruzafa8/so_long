@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:29:28 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/29 13:20:47 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:24:20 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,26 @@ static int	valid_position(t_data *game, size_t x, size_t y)
 	return (1);
 }
 
-static void	change_player_position(t_data *game, size_t x, size_t y)
+static void	change_player_position(t_data *game, size_t x, size_t y, t_direction direction)
 {
+	size_t	i;
+
 	game->player->x = x;
 	game->player->y = y;
-	game->images->player->instances[0].x = TILE_SIZE * x;
-	game->images->player->instances[0].y = TILE_SIZE * y;
+	i = 0;
+	while (i < 16)
+		game->images->player[i++]->instances[0].enabled = 0;
+	if (direction == UP)
+		i = 4;
+	if (direction == LEFT)
+		i = 12;
+	if (direction == DOWN)
+		i = 0;
+	if (direction == RIGHT)
+		i = 8;
+	game->images->player[i]->instances[0].x = TILE_SIZE * x;
+	game->images->player[i]->instances[0].y = TILE_SIZE * y;
+	game->images->player[i]->instances[0].enabled = 1;
 }
 
 void	sl_player_move(t_data *game, t_direction direction)
@@ -56,7 +70,7 @@ void	sl_player_move(t_data *game, t_direction direction)
 	{
 		game->num_movs++;
 		ft_printf("%d\n", game->num_movs);
-		change_player_position(game, x, y);
+		change_player_position(game, x, y, direction);
 	}
 	sl_verify_collect(game, x, y);
 	if (new_position == EXIT)

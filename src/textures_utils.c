@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 17:28:08 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:35:37 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ mlx_image_t	*sl_translate_position(t_data *data, int x, int y)
 	if (type == COLLECTIONABLE)
 		return (data->images->collection);
 	if (type == PLAYER)
-		return (data->images->player);
+		return (data->images->player[0]);
 	if (type == EXIT)
 		return (data->images->exit);
 	return (0);
@@ -73,7 +73,7 @@ mlx_image_t	*sl_translate_texture(t_data *data, t_value type)
 	if (type == COLLECTIONABLE)
 		return (data->images->collection);
 	if (type == PLAYER)
-		return (data->images->player);
+		return (data->images->player[0]);
 	if (type == EXIT)
 		return (data->images->exit);
 	return (0);

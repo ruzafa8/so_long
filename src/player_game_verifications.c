@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:05:12 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/29 13:49:39 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:16:17 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	sl_verify_collect(t_data *game, int x, int y)
 	if (sl_get_position(game, x, y) == COLLECTIONABLE)
 	{
 		delete_collect(game, x, y);
+		sl_set_position(game, x, y, FLOOR);
 		game->collected++;
 	}
 }

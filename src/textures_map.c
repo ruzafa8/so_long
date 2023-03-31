@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:50:48 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/29 12:54:34 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:16:31 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ static void	print_floor(t_data *data)
 	}
 }
 
+void	load_player_images(t_data *data)
+{
+	size_t	i;
+
+	i = 1;
+	while (i < 16)
+	{
+		mlx_image_to_window(data->mlx, data->images->player[i], 0, 0);
+		data->images->player[i]->instances[0].enabled = 0;
+		i++;
+	}
+}
+
 void	sl_print_map(t_data *data)
 {
 	size_t		x;
@@ -50,4 +63,5 @@ void	sl_print_map(t_data *data)
 		}
 		y++;
 	}
+	load_player_images(data);
 }
