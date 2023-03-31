@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 20:05:12 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:16:17 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:39:26 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	sl_verify_collect(t_data *game, int x, int y)
 
 int	sl_verify_win(t_data *game, int x, int y)
 {
-	int	verification;
+	int	ver;
 
-	verification = sl_get_position(game, x, y) == EXIT
-		&& game->collected == game->num_col;
-	game->win = verification;
-	return (verification);
+	if (sl_get_position(game, x, y) == EXIT)
+		ver = game->collected == game->num_col;
+	else
+		ver = 0;
+	game->win = ver;
+	return (ver);
 }
