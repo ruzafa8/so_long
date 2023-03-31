@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 20:34:36 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:34:11 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:59:03 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ t_data	*sl_verify_map(char *map, size_t width, size_t height)
 	data->num_col = count_value(data, COLLECTIONABLE, 0, 0);
 	if (data->num_col == 0)
 		return (verify_map_error(&data, "No hay ningún coleccionable."));
+	if (sl_verify_way(data, map) == 0)
+		return (verify_map_error(&data, "No hay un camino válido."));
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:29:28 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 16:29:51 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:21:58 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	update_position(size_t *x, size_t *y, t_direction direction)
 		*x = *x + 1;
 }
 
-static int	valid_position(t_data *game, size_t x, size_t y)
+int	sl_valid_position(t_data *game, size_t x, size_t y)
 {
 	t_value	position;
 
@@ -66,7 +66,7 @@ void	sl_player_move(t_data *game, t_direction direction)
 	y = game->player->y;
 	update_position(&x, &y, direction);
 	new_position = sl_get_position(game, x, y);
-	if (valid_position(game, x, y))
+	if (sl_valid_position(game, x, y))
 	{
 		game->num_movs++;
 		ft_printf("%d\n", game->num_movs);

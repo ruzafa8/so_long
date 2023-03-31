@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:33:55 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/25 18:43:41 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:03:38 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	verify_valid_chars(char *map)
 /**
  * Parses a the char map to t_value array map.
  */
-static t_value	*ctov(char *map, size_t width, size_t height)
+t_value	*sl_ctov(char *map, size_t width, size_t height)
 {
 	t_value	*res;
 	size_t	i;
@@ -76,7 +76,7 @@ t_value	*sl_validate_chars(char *map, size_t width, size_t height)
 
 	if (!verify_valid_chars(map))
 		return ((t_value *) sl_error("El mapa tiene caracteres inválidos."));
-	parsed_map = ctov(map, width, height);
+	parsed_map = sl_ctov(map, width, height);
 	if (!parsed_map)
 		return ((t_value *) sl_error("Problema de memoria."));
 	return (parsed_map);
