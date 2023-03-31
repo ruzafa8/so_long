@@ -6,11 +6,29 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:22:52 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:50:01 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:10:24 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	free_images(mlx_t *mlx, t_images *images)
+{
+	size_t	i;
+
+	i = 0;
+	mlx_delete_image(mlx, images->collection);
+	mlx_delete_image(mlx, images->exit);
+	mlx_delete_image(mlx, images->floor);
+	while (i < 16)
+	{
+		mlx_delete_image(mlx, images->player[i]);
+		mlx_delete_image(mlx, images->wall[i]);
+		i++;
+	}
+	free(images->player);
+	free(images->wall);
+}
 
 void	sl_free_data(t_data **data)
 {
@@ -22,7 +40,10 @@ void	sl_free_data(t_data **data)
 			free((*data)->player);
 		if ((*data)->exit)
 			free((*data)->exit);
+		if ((*data)->images)
+			free_images((*data)->mlx, (*data)->images);
 		free(*data);
+		mlx_terminate((*data)->mlx);
 	}
 }
 

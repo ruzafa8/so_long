@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/27 19:03:41 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:53:30 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_data	*sl_read_map(char *filename)
 	char	*map;
 	size_t	width;
 	size_t	height;
+	t_data	*data;
 
 	fd = open_ber_extension(filename);
 	if (fd < 0)
@@ -120,5 +121,6 @@ t_data	*sl_read_map(char *filename)
 		line = get_next_line_without_breakline(fd);
 		height++;
 	}
-	return (close(fd), free(map), sl_verify_map(map, width, height));
+	data = sl_verify_map(map, width, height);
+	return (close(fd), free(map), data);
 }

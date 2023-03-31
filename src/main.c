@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 16:40:53 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:16:17 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 void	sl_close_hook(void *param)
 {
-	if (!param)
-		ft_printf("");
-	ft_printf("About tu close");
+	(void) param;
 }
 
 void	ft_hook(mlx_key_data_t keydata, void *param)
@@ -65,5 +63,6 @@ int	main(int argc, char **argv)
 	// @TODO: free images
 	// @TODO: free data
 	// @TODO: free mlx?
+	sl_free_data(&game);
 	return (0);
 }
