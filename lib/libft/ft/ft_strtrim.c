@@ -36,7 +36,7 @@ static size_t	ft_count_to_delete(char const *s, char const *set, size_t len)
 		i++;
 	}
 	i = len - 1;
-	while (i >= 0 && ft_belong(s[i], set) && count < len)
+	while (ft_belong(s[i], set) && count < len)
 	{
 		count++;
 		i--;
