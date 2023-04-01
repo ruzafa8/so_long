@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/04/01 18:48:35 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 19:13:54 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*get_next_line_without_breakline(int fd)
 	free(line);
 	return (cpy);
 }
+
 static char	*concat_and_next_line(char **s1, char *s2, int fd)
 {
 	size_t	len1;
@@ -55,15 +56,12 @@ static char	*concat_and_next_line(char **s1, char *s2, int fd)
 	return (get_next_line_without_breakline(fd));
 }
 
-
 void	init_values(t_data *aux, char **map, char *line)
 {
 	aux->width = ft_strlen(line);
 	aux->height = 0;
 	*map = 0;
 }
-
-
 
 t_data	*sl_read_map(int fd)
 {
