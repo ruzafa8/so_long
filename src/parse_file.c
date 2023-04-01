@@ -6,12 +6,36 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/04/01 18:08:20 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:15:25 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/**
+ * Function that get next line without the breakline at the end,
+ * unless it only has got the breakline.
+ * @param fd the file to read.
+ * @returns the line without the \\n at the end.
+ */
+static char	*get_next_line_without_breakline(int fd)
+{
+	char	*line;
+	size_t	len;
+	char	*cpy;
+
+	line = ft_get_next_line(fd);
+	if (!line)
+		return (0);
+	len = ft_strlen(line);
+	if (len == 1)
+		return (line);
+	if (line[len - 1] != '\n')
+		return (line);
+	cpy = ft_substr(line, 0, len - 1);
+	free(line);
+	return (cpy);
+}
 static char	*concat_and_next_line(char **s1, char *s2, int fd)
 {
 	size_t	len1;
@@ -47,31 +71,6 @@ static int	valid_extension(char *filename)
 		&& filename[len - 3] == 'b'
 		&& filename[len - 2] == 'e'
 		&& filename[len - 1] == 'r');
-}
-
-/**
- * Function that get next line without the breakline at the end,
- * unless it only has got the breakline.
- * @param fd the file to read.
- * @returns the line without the \\n at the end.
- */
-static char	*get_next_line_without_breakline(int fd)
-{
-	char	*line;
-	size_t	len;
-	char	*cpy;
-
-	line = ft_get_next_line(fd);
-	if (!line)
-		return (0);
-	len = ft_strlen(line);
-	if (len == 1)
-		return (line);
-	if (line[len - 1] != '\n')
-		return (line);
-	cpy = ft_substr(line, 0, len - 1);
-	free(line);
-	return (cpy);
 }
 
 int	open_ber_extension(char	*filename)
