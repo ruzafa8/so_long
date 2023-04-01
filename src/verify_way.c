@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 17:10:40 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 17:55:20 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:12:11 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int	sl_verify_way(t_data *game, char *map)
 	aux.collected = 0;
 	aux.win = 0;
 	visit_position(&aux, game->player->x, game->player->y);
+	free(aux.map);
 	return (aux.collected == game->num_col && aux.win == 1);
 }

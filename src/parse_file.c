@@ -6,34 +6,29 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 19:50:21 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 18:53:30 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:08:20 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-/**
- * Concatenates two strings and releases the parameters.
- * @param s1 a null-terminating string.
- * @param s2 a null-terminating string.
- * @return a new string concatenating both string params.
- */
-static char	*concat(char *s1, char *s2)
+static char	*concat_and_next_line(char **s1, char *s2, int fd)
 {
 	size_t	len1;
 	size_t	len2;
 	size_t	total_len;
 	char	*res;
 
-	len1 = ft_strlen(s1);
+	len1 = ft_strlen(*s1);
 	len2 = ft_strlen(s2);
 	total_len = len1 + len2 + 1;
 	res = (char *) ft_calloc(total_len, sizeof(char));
-	ft_strlcpy(res, s1, total_len);
+	ft_strlcpy(res, *s1, total_len);
 	ft_strlcpy(res + len1, s2, total_len);
-	free(s1);
+	free(*s1);
 	free(s2);
-	return (res);
+	*s1 = res;
+	return (get_next_line_without_breakline(fd));
 }
 
 /**
@@ -99,28 +94,26 @@ t_data	*sl_read_map(char *filename)
 	int		fd;
 	char	*line;
 	char	*map;
-	size_t	width;
-	size_t	height;
-	t_data	*data;
+	t_data	aux;
+	t_data	*res;
 
 	fd = open_ber_extension(filename);
 	if (fd < 0)
 		return (0);
 	line = get_next_line_without_breakline(fd);
-	width = ft_strlen(line);
-	height = 0;
-	map = 0;
 	if (line == 0)
 		return (close(fd), (t_data *) sl_error("El mapa está vacío."));
+	aux.width = ft_strlen(line);
+	aux.height = 0;
+	map = 0;
 	while (line && ft_strlen(line) > 0)
 	{
-		if (width != ft_strlen(line))
+		if (aux.width != ft_strlen(line))
 			return (close(fd), free(line), free(map),
 				(t_data *) sl_error("El mapa no es rectangular."));
-		map = concat(map, line);
-		line = get_next_line_without_breakline(fd);
-		height++;
+		line = concat_and_next_line(&map, line, fd);
+		aux.height++;
 	}
-	data = sl_verify_map(map, width, height);
-	return (close(fd), free(map), data);
+	res = sl_verify_map(map, aux.width, aux.height);
+	return (close(fd), free(map), res);
 }
