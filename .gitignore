@@ -3,7 +3,6 @@ so_long
 *.o
 .vscode
 *.swp
-*.ber
 *.dSYM
 .DS_Store
 *.a
