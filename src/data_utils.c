@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:22:52 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 19:10:24 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:24:30 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void	sl_free_data(t_data **data)
 			free((*data)->exit);
 		if ((*data)->images)
 			free_images((*data)->mlx, (*data)->images);
+		if ((*data)->mlx)
+			mlx_terminate((*data)->mlx);
 		free(*data);
-		mlx_terminate((*data)->mlx);
 	}
 }
 

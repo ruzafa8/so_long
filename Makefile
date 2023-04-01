@@ -9,7 +9,7 @@ LIBS	:= $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT)/libft.a\
 SRCS	:= src/main.c src/textures_map.c src/textures_load.c src/textures_utils.c\
 			src/verifications.c src/verifications_valid_chars.c\
 			src/player_move.c src/player_game_verifications.c\
-			src/verify_way.c\
+			src/verify_way.c src/verify_extension.c\
 			src/parse_file.c src/data_utils.c
 OBJS	:= ${SRCS:.c=.o}
 

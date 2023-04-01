@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:10:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 19:16:17 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:45:07 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 void	sl_close_hook(void *param)
 {
-	(void) param;
+	t_data	*data;
+
+	data = (t_data *) param;
+	sl_free_data(&data);
 }
 
 void	ft_hook(mlx_key_data_t keydata, void *param)
@@ -42,10 +45,14 @@ void	ft_hook(mlx_key_data_t keydata, void *param)
 int	main(int argc, char **argv)
 {
 	t_data	*game;
+	int		fd;
 
 	if (argc != 2)
 		return ((int) sl_error("Número de argumentos inválido."));
-	game = sl_read_map(argv[1]);
+	fd = sl_open_ber_extension(argv[1]);
+	if (fd < 0)
+		return (0);
+	game = sl_read_map(fd);
 	if (!game)
 		return (1);
 	game->mlx = mlx_init(
@@ -58,11 +65,8 @@ int	main(int argc, char **argv)
 		return (1);
 	sl_print_map(game);
 	mlx_key_hook(game->mlx, &ft_hook, game);
-	mlx_close_hook(game->mlx, &sl_close_hook, 0);
+	mlx_close_hook(game->mlx, &sl_close_hook, game);
 	mlx_loop(game->mlx);
-	// @TODO: free images
-	// @TODO: free data
-	// @TODO: free mlx?
 	sl_free_data(&game);
 	return (0);
 }

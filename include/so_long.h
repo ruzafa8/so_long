@@ -6,7 +6,7 @@
 /*   By: aruzafa- <aruzafa-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 16:55:23 by aruzafa-          #+#    #+#             */
-/*   Updated: 2023/03/31 17:56:13 by aruzafa-         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:43:13 by aruzafa-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ t_value		*sl_ctov(char *map, size_t width, size_t height);
 /** 
  * Reads and parses a .ber file in a char array. 
  * It also verifies the input is correct. If something is wrong, returns null.
- * @param filename the name of the file
+ * @param fd the fd of the .ber file
  * @returns a verified structure with the info of the map or null if any problem.
  */
-t_data		*sl_read_map(char *filename);
+t_data		*sl_read_map(int fd);
 
 /**
  * Prints an string error on the standard error output.
@@ -166,5 +166,8 @@ void		sl_verify_collect(t_data *game, int x, int y);
 
 /*******************************  verify_way.c ********************************/
 int			sl_verify_way(t_data *game, char *map);
+
+/****************************  verify_extension.c *****************************/
+int	sl_open_ber_extension(char	*filename);
 
 #endif
